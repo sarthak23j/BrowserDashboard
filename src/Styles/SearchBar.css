@@ -1,0 +1,34 @@
+.search-container {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: var(--bg-input);
+  border: none;
+  border-radius: 25px; /* Slightly reduced for multiline look */
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 1.1rem;
+  outline: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+  text-align: left;
+  caret-color: var(--accent-color);
+  resize: none;
+  overflow: hidden;
+  display: block;
+  min-height: 3.5rem; /* Ensure consistent initial height */
+  line-height: 1.5;
+}
+
+.search-input:focus {
+  background: var(--bg-input-focus);
+  transform: translateY(-2px);
+}
+
+.search-input::placeholder {
+  color: var(--placeholder-color);
+}

@@ -1,0 +1,141 @@
+.clock-container {
+  position: absolute;
+  top: 3rem;
+  right: 4rem;
+  text-align: right;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.time {
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.am-pm {
+  color: var(--primary-color);
+  font-size: 0.4em;
+  margin-left: 0.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.weekday {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.date-text {
+  opacity: 0.6;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.calendar-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 15px;
+  border: none;
+}
+
+/* Calendar Seamless Overrides */
+.react-calendar {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-color) !important;
+  font-family: inherit !important;
+  width: 280px !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+  border: none !important;
+  font-weight: 500;
+  color: var(--text-color) !important;
+  opacity: 0.5;
+}
+
+.react-calendar__tile {
+  border: none !important;
+  outline: none !important;
+  background: none;
+  border-radius: 8px;
+  padding: 12px 0 !important;
+  transition: all 0.2s ease;
+  color: var(--text-color) !important;
+  cursor: default !important; /* Visual cue that dates aren't clickable */
+}
+
+/* Remove the active/selected state entirely */
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: transparent !important;
+  color: var(--text-color) !important;
+  box-shadow: none !important;
+}
+
+/* Today's date highlight - Placed after active to override */
+.react-calendar__tile--now,
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: transparent !important;
+  color: var(--primary-color) !important;
+  font-weight: normal;
+}
+
+/* Maintain hover effect for non-active days just for visual feedback */
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: var(--hover-bg) !important;
+}
+
+.react-calendar__navigation {
+  margin-bottom: 10px !important;
+  border: none !important;
+}
+
+.react-calendar__navigation button {
+  background: none !important;
+  border: none !important;
+  color: var(--text-color) !important;
+  font-size: 0.95rem !important;
+  outline: none !important;
+  min-width: 40px !important;
+  transition: opacity 0.2s;
+  cursor: pointer !important;
+}
+
+.react-calendar__navigation button:enabled:hover {
+  background: transparent !important;
+  opacity: 0.5;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--text-faint) !important;
+}
+
+.react-calendar *, .react-calendar *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

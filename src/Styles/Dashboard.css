@@ -1,0 +1,28 @@
+.dashboard {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  background: var(--bg-color);
+  justify-content: center;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.greeting {
+  font-size: 2.8rem;
+  font-weight: 200;
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.5px;
+}
+
+.highlight {
+  color: var(--primary-color);
+  font-weight: 400;
+}
