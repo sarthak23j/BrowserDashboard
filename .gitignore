@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 # Project Specific
+GEMINI.md
 server/creds.db
 server/.env
