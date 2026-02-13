@@ -1,11 +1,12 @@
 .creds-container {
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1000px; /* Slightly narrower for better center focus */
   width: 100%;
   margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Center content vertically */
 }
 
 .creds-header {
@@ -24,62 +25,49 @@
 .creds-controls {
   display: flex;
   gap: 1rem;
-  flex: 1;
-  max-width: 600px;
-  margin-left: 2rem;
+  align-items: center;
 }
 
 .creds-search {
-  flex: 1;
-  padding: 0.8rem 1.2rem;
+  padding: 0.8rem 1.5rem; /* Increased side padding for pill shape */
   background: var(--bg-input);
   border: none;
-  border-radius: 12px;
+  border-radius: 50px;
   color: var(--text-color);
   font-family: inherit;
   font-size: 1rem;
   outline: none;
+  min-width: 250px;
 }
 
 .creds-search:focus {
   background: var(--bg-input-focus);
 }
 
-.btn-add {
-  background: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0 1.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.btn-add:hover {
-  opacity: 0.9;
-}
-
 /* Grid */
 .creds-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, 200px); /* Fixed column width */
+  gap: 1rem;
   overflow-y: auto;
-  padding-right: 10px;
+  padding: 10px;
+  align-content: start;
+  max-height: 70vh;
+  justify-content: center; /* Center the grid items if they don't fill row */
 }
 
 .cred-tile {
   background: var(--bg-input);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 16px;
   cursor: pointer;
   transition: transform 0.2s, background 0.2s;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 140px;
+  height: 100px; /* Fixed height */
+  width: 100%; /* Fill grid cell (200px) */
+  box-sizing: border-box;
 }
 
 .cred-tile:hover {
@@ -88,7 +76,7 @@
 }
 
 .cred-service {
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Slightly smaller */
   font-weight: 500;
   color: var(--text-color);
 }
@@ -97,7 +85,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem; /* Reduced margin */
 }
 
 .tag {
@@ -130,6 +118,8 @@
   width: 500px;
   max-width: 90%;
   border: 1px solid var(--bg-input);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-header {
@@ -144,19 +134,108 @@
   color: var(--primary-color);
 }
 
-.btn-close {
-  background: none;
+/* Buttons */
+.btn-icon {
+  background: transparent;
   border: none;
   color: var(--text-dim);
-  font-size: 1.5rem;
   cursor: pointer;
+  padding: 10px; /* Slightly larger touch target */
+  border-radius: 50%; /* Circular */
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1; /* Ensure perfect circle */
 }
 
+.btn-icon:hover {
+  background: var(--hover-bg);
+  color: var(--text-color);
+}
+
+.btn-primary { color: var(--accent-color); }
+.btn-primary:hover { background: var(--accent-color); color: white; }
+
+.btn-danger { color: #cf6679; }
+.btn-danger:hover { background: #cf6679; color: white; }
+
+.btn-success { color: #00e676; }
+.btn-success:hover { background: #00e676; color: black; }
+
+.btn-icon-small {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.btn-text-small {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.creds-input {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--bg-input);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.creds-input:focus {
+  border-color: var(--accent-color);
+  background: var(--bg-input-focus);
+}
+
+.pair-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.pair-key {
+  flex: 1; /* Takes up equal space */
+  min-width: 0;
+}
+
+.pair-value {
+  flex: 2; /* Takes up more space */
+  min-width: 0;
+}
+
+/* Data View */
 .data-row {
   display: flex;
   justify-content: space-between;
   padding: 0.8rem 0;
   border-bottom: 1px solid var(--bg-input);
+}
+
+.data-row:last-child {
+  border-bottom: none;
 }
 
 .data-key {
@@ -166,5 +245,17 @@
 
 .data-value {
   color: var(--text-color);
-  font-family: 'JetBrains Mono', monospace; /* Good for passwords/keys */
+  font-family: 'JetBrains Mono', monospace;
+  text-align: right;
+  word-break: break-all; /* Prevent overflow */
+  max-width: 70%;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bg-input);
 }
