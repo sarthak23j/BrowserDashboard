@@ -2,15 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
+const path = require('path');
 const db = require('./db');
 
 const app = express();
-const PORT = process.env.PORT || 1336;
+const PORT = process.env.PORT || 1337;
 // Ensure MASTER_KEY is exactly 32 bytes for AES-256
 const MASTER_KEY = crypto.scryptSync(process.env.MASTER_KEY || 'default_secret', 'salt', 32); 
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Encryption Helper
 function encrypt(text) {
