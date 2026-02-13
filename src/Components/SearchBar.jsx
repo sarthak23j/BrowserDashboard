@@ -41,6 +41,10 @@ const SearchBar = () => {
         onKeyDown={handleKeyDown}
         autoFocus
         rows={1}
+        spellCheck="false"
+        autoCorrect="off"
+        autoComplete="off"
+        autoCapitalize="off"
       />
     </div>
   );

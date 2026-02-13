@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Layout from './Layout';
 import Dashboard from './Pages/Dashboard';
 import Creds from './Pages/Creds';
 
@@ -10,8 +11,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/creds" element={<Creds />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/creds" element={<Creds />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
