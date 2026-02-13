@@ -1,16 +1,56 @@
-# React + Vite
+# BrowserDashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimalist, highly functional browser dashboard built with React and Vite. Features a clean dark theme, custom clock/calendar, and a dedicated credentials manager.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🏠 Dashboard
+*   **Minimalist Design:** Dark theme with purple accents (`#bb86fc` / `#7c4dff`) and "Outfit" font.
+*   **Smart Search:**
+    *   Multiline input (Shift+Enter expands).
+    *   Direct URL navigation (e.g., `youtube.com` goes to site).
+    *   Default Google Search integration.
+    *   No distractions (spellcheck/autocorrect disabled).
+*   **Clock & Calendar:**
+    *   Real-time clock with styled AM/PM.
+    *   Interactive Calendar popup (hover to peek, click to pin).
+    *   "Today" highlight.
 
-## React Compiler
+### 🔐 Credentials Manager (`/creds`)
+*   **Searchable Grid:** Filter credentials by service name or tags.
+*   **Detail View:** Modal popup to view full credential data.
+*   **Secure Layout:** Designed for privacy and ease of access.
+*   *(Currently using Mock Data - Backend in progress)*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
+*   **Frontend:** React, Vite
+*   **Styling:** CSS Modules, CSS Variables (Theming), Flexbox/Grid
+*   **Font:** Outfit (via `@fontsource`, offline-ready)
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/sarthak23j/BrowserDashboard.git
+    cd BrowserDashboard
+    ```
+
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3.  Run the development server:
+    ```bash
+    npm run dev
+    ```
+    Open `http://localhost:1337` in your browser.
+
+## Roadmap
+- [ ] Backend Implementation (Node.js + SQLite) for Credentials.
+- [ ] "Add Credential" Form.
+- [ ] Weather Widget.
+- [ ] Customizable Quick Links.
+
+## License
+MIT
