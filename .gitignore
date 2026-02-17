@@ -27,3 +27,4 @@ dist-ssr
 GEMINI.md
 server/creds.db
 server/.env
+server/bangs.json
