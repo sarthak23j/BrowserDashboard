@@ -2,14 +2,15 @@
   width: 100%;
   max-width: 500px;
   margin-top: 2rem;
+  position: relative; /* Anchor for absolute positioning */
 }
 
 .search-input {
   width: 100%;
   padding: 1rem 1.5rem;
-  background: var(--bg-input);
+  background: transparent; /* Transparent to show ghost text behind */
   border: none;
-  border-radius: 25px; /* Slightly reduced for multiline look */
+  border-radius: 25px;
   color: var(--text-color);
   font-family: inherit;
   font-size: 1.1rem;
@@ -20,15 +21,61 @@
   resize: none;
   overflow: hidden;
   display: block;
-  min-height: 3.5rem; /* Ensure consistent initial height */
+  min-height: 3.5rem;
   line-height: 1.5;
+  position: relative;
+  z-index: 2; /* Sit above ghost text */
 }
 
-.search-input:focus {
+/* Base background style applied to a container or the input itself? 
+   Since input is transparent, we need a background layer or apply it to container.
+   Let's apply it to the container to ensure the look is consistent.
+*/
+.search-container {
+  background: var(--bg-input);
+  border-radius: 25px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.search-container:focus-within {
   background: var(--bg-input-focus);
   transform: translateY(-2px);
 }
 
+.search-input:focus {
+  background: transparent;
+  transform: none; /* Container handles the transform */
+}
+
 .search-input::placeholder {
   color: var(--placeholder-color);
+}
+
+/* Ghost Text Styling */
+.search-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1.5rem; /* Must match input padding exactly */
+  font-family: inherit;
+  font-size: 1.1rem; /* Must match input font size */
+  line-height: 1.5;   /* Must match input line height */
+  pointer-events: none;
+  z-index: 1;
+  white-space: pre-wrap; /* Wrap like the textarea */
+  word-break: break-word; /* Match textarea behavior */
+  color: transparent; /* Default text is invisible */
+}
+
+.invisible-text {
+  color: transparent;
+  visibility: hidden;
+  white-space: pre-wrap;
+}
+
+.visible-ghost {
+  color: var(--placeholder-color); /* Ghost text color */
+  opacity: 0.6;
 }

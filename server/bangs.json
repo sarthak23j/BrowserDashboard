@@ -1,0 +1,32 @@
+[
+  {
+    "c": "y",
+    "n": "YouTube",
+    "u": "https://www.youtube.com",
+    "s": "https://www.youtube.com/results?search_query="
+  },
+  {
+    "c": "g",
+    "n": "Google",
+    "u": "https://www.google.com",
+    "s": "https://www.google.com/search?q="
+  },
+  {
+    "c": "gh",
+    "n": "GitHub",
+    "u": "https://github.com",
+    "s": "https://github.com/search?q="
+  },
+  {
+    "c": "r",
+    "n": "Reddit",
+    "u": "https://www.reddit.com",
+    "s": "https://www.reddit.com/search/?q="
+  },
+  {
+    "c": "ddg",
+    "n": "DuckDuckGo",
+    "u": "https://duckduckgo.com",
+    "s": "https://duckduckgo.com/?q="
+  }
+]

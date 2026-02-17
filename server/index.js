@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
 const path = require('path');
+const fs = require('fs');
 const db = require('./db');
 
 const app = express();
@@ -126,6 +127,26 @@ app.delete('/api/creds/delete/:id', (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// ----------------- SEARCH API -----------------
+
+// GET /api/search/bangs - Fetch search shortcuts
+app.get('/api/search/bangs', (req, res) => {
+  const bangsPath = path.join(__dirname, 'bangs.json');
+  fs.readFile(bangsPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading bangs.json:', err);
+      // Return empty object if file not found or error
+      return res.json({});
+    }
+    try {
+      res.json(JSON.parse(data));
+    } catch (parseErr) {
+      console.error('Error parsing bangs.json:', parseErr);
+      res.json({});
+    }
+  });
 });
 
 app.listen(PORT, () => {
