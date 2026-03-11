@@ -43,17 +43,25 @@
   margin-top: 0;
 }
 
-.btn-creds {
+.dashboard-actions {
   position: absolute;
-  right: -4.5rem; /* 3.5rem width + 1rem gap */
+  left: calc(100% + 1rem); /* Positioned to the right of search bar */
   top: 0;
-  height: 3.5rem; /* Match input height for perfect centering */
-  width: 3.5rem; /* Make it square */
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  width: max-content;
+}
+
+.btn-dashboard {
+  height: 3.5rem;
+  width: 3.5rem;
   background: transparent;
   border: none;
   color: var(--text-dim);
   cursor: pointer;
-  padding: 0; /* Remove padding as we use flex centering */
+  padding: 0;
   border-radius: 50%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -62,14 +70,14 @@
   opacity: 0.5;
 }
 
-.btn-creds:hover {
+.btn-dashboard:hover {
   background: var(--hover-bg);
   color: var(--primary-color);
   opacity: 1;
   transform: scale(1.1);
 }
 
-.btn-creds svg {
+.btn-dashboard svg {
   width: 24px;
   height: 24px;
 }

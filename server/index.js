@@ -129,24 +129,88 @@ app.delete('/api/creds/delete/:id', (req, res) => {
   }
 });
 
-// ----------------- SEARCH API -----------------
+// ----------------- SEARCH API (BANGS) -----------------
+
+const bangsPath = path.join(__dirname, 'bangs.json');
+
+const readBangs = () => {
+  if (!fs.existsSync(bangsPath)) return [];
+  try {
+    const data = fs.readFileSync(bangsPath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading bangs.json:', err);
+    return [];
+  }
+};
+
+const writeBangs = (bangs) => {
+  try {
+    fs.writeFileSync(bangsPath, JSON.stringify(bangs, null, 2), 'utf8');
+    return true;
+  } catch (err) {
+    console.error('Error writing bangs.json:', err);
+    return false;
+  }
+};
 
 // GET /api/search/bangs - Fetch search shortcuts
 app.get('/api/search/bangs', (req, res) => {
-  const bangsPath = path.join(__dirname, 'bangs.json');
-  fs.readFile(bangsPath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading bangs.json:', err);
-      // Return empty object if file not found or error
-      return res.json({});
-    }
-    try {
-      res.json(JSON.parse(data));
-    } catch (parseErr) {
-      console.error('Error parsing bangs.json:', parseErr);
-      res.json({});
-    }
-  });
+  res.json(readBangs());
+});
+
+// POST /api/search/bangs - Add a new bang
+app.post('/api/search/bangs', (req, res) => {
+  const { c, n, u, s } = req.body;
+  if (!c || !n || !u || !s) return res.status(400).json({ error: 'All fields (c, n, u, s) are required' });
+
+  const bangs = readBangs();
+  bangs.push({ c, n, u, s });
+  
+  if (writeBangs(bangs)) {
+    res.json({ success: true, bangs });
+  } else {
+    res.status(500).json({ error: 'Failed to save bangs' });
+  }
+});
+
+// PUT /api/search/bangs/:index - Update a bang at index
+app.put('/api/search/bangs/:index', (req, res) => {
+  const index = parseInt(req.params.index);
+  const { c, n, u, s } = req.body;
+  
+  const bangs = readBangs();
+  if (isNaN(index) || index < 0 || index >= bangs.length) {
+    return res.status(404).json({ error: 'Bang not found at this index' });
+  }
+
+  if (!c || !n || !u || !s) return res.status(400).json({ error: 'All fields (c, n, u, s) are required' });
+
+  bangs[index] = { c, n, u, s };
+  
+  if (writeBangs(bangs)) {
+    res.json({ success: true, bangs });
+  } else {
+    res.status(500).json({ error: 'Failed to save bangs' });
+  }
+});
+
+// DELETE /api/search/bangs/:index - Delete a bang at index
+app.delete('/api/search/bangs/:index', (req, res) => {
+  const index = parseInt(req.params.index);
+  const bangs = readBangs();
+
+  if (isNaN(index) || index < 0 || index >= bangs.length) {
+    return res.status(404).json({ error: 'Bang not found at this index' });
+  }
+
+  bangs.splice(index, 1);
+  
+  if (writeBangs(bangs)) {
+    res.json({ success: true, bangs });
+  } else {
+    res.status(500).json({ error: 'Failed to save bangs' });
+  }
 });
 
 app.listen(PORT, () => {
