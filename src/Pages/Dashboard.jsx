@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../Components/SearchBar';
 import '../Styles/Dashboard.css';
 
+const getTimePeriod = () => {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 17) return 'afternoon';
+  if (hour >= 17 && hour < 21) return 'evening';
+  return 'night';
+};
+
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [greeting, setGreeting] = useState('welcome,');
+
+  useEffect(() => {
+    fetch('/api/greetings')
+      .then(res => res.json())
+      .then(data => {
+        const period = getTimePeriod();
+        const options = data[period];
+        if (Array.isArray(options) && options.length > 0) {
+          setGreeting(options[Math.floor(Math.random() * options.length)]);
+        }
+      })
+      .catch(err => console.error('Failed to load greetings:', err));
+  }, []);
 
   return (
     <>
       <div className="greeting">
-        welcome, <span className="highlight">cr1t.</span>
+        {greeting} <span className="highlight">cr1t.</span>
       </div>
       <div className="search-wrapper">
         <SearchBar />

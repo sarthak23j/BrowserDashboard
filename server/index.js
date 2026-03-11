@@ -1,8 +1,8 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
-const path = require('path');
 const fs = require('fs');
 const db = require('./db');
 
@@ -16,6 +16,18 @@ app.use(express.json());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../dist')));
+
+// --- Auth ---
+const AUTH_PASSWORD = process.env.AUTH_PASSWORD || 'jindal23';
+
+app.post('/api/auth/verify', (req, res) => {
+  const { password } = req.body;
+  if (password === AUTH_PASSWORD) {
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ success: false, error: 'Invalid password' });
+  }
+});
 
 // Encryption Helper
 function encrypt(text) {
@@ -60,7 +72,14 @@ app.get('/api/creds/get', (req, res) => {
         };
       } catch (err) {
         console.error(`Failed to decrypt cred ID ${row.id}:`, err);
-        return { ...row, data: { error: 'Decryption failed' } };
+        let parsedTags = [];
+        try { parsedTags = JSON.parse(row.tags || '[]'); } catch(e) {}
+        
+        return { 
+          ...row, 
+          tags: parsedTags,
+          data: { error: 'Decryption failed' } 
+        };
       }
     });
 
@@ -126,6 +145,20 @@ app.delete('/api/creds/delete/:id', (req, res) => {
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// ----------------- GREETINGS API -----------------
+
+const greetingsPath = path.join(__dirname, 'greetings.json');
+
+app.get('/api/greetings', (req, res) => {
+  try {
+    const data = fs.readFileSync(greetingsPath, 'utf8');
+    res.json(JSON.parse(data));
+  } catch (err) {
+    console.error('Error reading greetings.json:', err);
+    res.status(500).json({ error: 'Failed to load greetings' });
   }
 });
 

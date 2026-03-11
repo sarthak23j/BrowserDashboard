@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import AuthGate from './Components/AuthGate';
+import { ToastProvider } from './Components/Toast';
 import Layout from './Layout';
 import Dashboard from './Pages/Dashboard';
 import Creds from './Pages/Creds';
@@ -10,15 +12,17 @@ import './Styles/globalStyles.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/creds" element={<Creds />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ToastProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/creds" element={<AuthGate><Creds /></AuthGate>} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
   );
 }
 

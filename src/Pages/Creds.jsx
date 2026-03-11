@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../Components/Toast';
 import '../Styles/Creds.css';
 
 const API_URL = '/api/creds';
@@ -12,6 +13,7 @@ const IconCancel = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="n
 const IconClose = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
 
 const Creds = () => {
+  const { showToast } = useToast();
   const [creds, setCreds] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -82,8 +84,11 @@ const Creds = () => {
         fetchCreds();
         setIsAddModalOpen(false);
         resetForm();
+        showToast('Credential added', 'success');
+      } else {
+        showToast('Failed to add credential', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to add credential', 'error'); }
   };
 
   const handleUpdateSubmit = async (e) => {
@@ -98,9 +103,12 @@ const Creds = () => {
       if (res.ok) {
         fetchCreds();
         setIsEditing(false);
-        setSelectedCred(null); // Close modal or refresh it? Close for now.
+        setSelectedCred(null);
+        showToast('Credential updated', 'success');
+      } else {
+        showToast('Failed to update credential', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to update credential', 'error'); }
   };
 
   const handleDelete = async (id) => {
@@ -110,8 +118,11 @@ const Creds = () => {
       if (res.ok) {
         setCreds(creds.filter(c => c.id !== id));
         setSelectedCred(null);
+        showToast('Credential deleted', 'success');
+      } else {
+        showToast('Failed to delete credential', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to delete credential', 'error'); }
   };
 
   const updateDataPair = (index, field, value) => {

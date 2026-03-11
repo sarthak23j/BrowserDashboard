@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../Components/Toast';
 import '../Styles/Creds.css'; // Reuse Creds styling
 
 const API_URL = '/api/search/bangs';
@@ -12,6 +13,7 @@ const IconCancel = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="n
 const IconClose = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
 
 const Settings = () => {
+  const { showToast } = useToast();
   const [bangs, setBangs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -70,8 +72,11 @@ const Settings = () => {
         fetchBangs();
         setIsAddModalOpen(false);
         resetForm();
+        showToast('Bang added', 'success');
+      } else {
+        showToast('Failed to add bang', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to add bang', 'error'); }
   };
 
   const handleUpdateSubmit = async (e) => {
@@ -87,8 +92,11 @@ const Settings = () => {
         fetchBangs();
         setIsEditing(false);
         setSelectedBang(null);
+        showToast('Bang updated', 'success');
+      } else {
+        showToast('Failed to update bang', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to update bang', 'error'); }
   };
 
   const handleDelete = async (index) => {
@@ -98,8 +106,11 @@ const Settings = () => {
       if (res.ok) {
         fetchBangs();
         setSelectedBang(null);
+        showToast('Bang deleted', 'success');
+      } else {
+        showToast('Failed to delete bang', 'error');
       }
-    } catch (err) { console.error(err); }
+    } catch (err) { console.error(err); showToast('Failed to delete bang', 'error'); }
   };
 
   useEffect(() => {

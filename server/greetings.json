@@ -1,0 +1,34 @@
+{
+  "morning": [
+    "rise and grind,",
+    "good morning,",
+    "top of the morning,",
+    "wakey wakey,",
+    "morning sunshine,",
+    "let's get it,"
+  ],
+  "afternoon": [
+    "good afternoon,",
+    "hey there,",
+    "back at it,",
+    "hope it's going well,",
+    "halfway through the day,",
+    "keep pushing,"
+  ],
+  "evening": [
+    "good evening,",
+    "welcome back,",
+    "winding down,",
+    "evening vibes,",
+    "hope today was good,",
+    "almost there,"
+  ],
+  "night": [
+    "burning the midnight oil,",
+    "still up,",
+    "late night grind,",
+    "can't sleep,",
+    "night owl mode,",
+    "the world is quiet,"
+  ]
+}
